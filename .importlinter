@@ -1,0 +1,12 @@
+[importlinter]
+root_packages =
+    app
+    framework
+
+[importlinter:contract:public-does-not-import-private]
+name = Public must not import private
+type = forbidden
+source_modules =
+    app.public
+forbidden_modules =
+    app.private
