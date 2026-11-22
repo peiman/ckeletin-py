@@ -1,11 +1,11 @@
 """Entry point. It calls the command layer and does not import argparse."""
 
-from app.commands.hello import run
+from app.commands.dispatch import main
 
 
-def main() -> int:
-    return run()
+def entry() -> int:
+    return main()
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(entry())

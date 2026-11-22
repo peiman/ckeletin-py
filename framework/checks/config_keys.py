@@ -6,6 +6,8 @@ import ast
 import sys
 from pathlib import Path
 
+from framework.walk import python_files
+
 
 def find_raw_config_gets(root: Path) -> list[str]:
     root = root.resolve()
@@ -13,7 +15,7 @@ def find_raw_config_gets(root: Path) -> list[str]:
     if not app.is_dir():
         return [f"{app}: application tree is missing"]
     violations: list[str] = []
-    for path in sorted(app.rglob("*.py")):
+    for path in python_files(root, "app"):
         tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
         rel = path.relative_to(root).as_posix()
         for node in ast.walk(tree):

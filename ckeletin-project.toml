@@ -1,0 +1,4 @@
+role = "implementation"
+name = "ckeletin-py"
+
+[defaults]

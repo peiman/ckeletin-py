@@ -1,15 +1,13 @@
-"""Hello command. argparse stays in this module."""
+"""Hello command."""
 
 from __future__ import annotations
 
-import argparse
+from framework.config import KEY_APP_MESSAGE, Settings
+from framework.output import render
 
-from app.private.greeting import greet
-from framework.config import KEY_APP_MESSAGE, get
+from app.logic.greeting import greet
 
 
-def run(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="ckeletin-python")
-    parser.parse_args(argv)
-    print(greet(get(KEY_APP_MESSAGE)))
-    return 0
+def run(settings: Settings, ns=None) -> int:
+    message = greet(settings.value(KEY_APP_MESSAGE))
+    return render(command="hello", data={"message": message}, text=f"{message}\n", settings=settings)

@@ -10,6 +10,8 @@ import ast
 import sys
 from pathlib import Path
 
+from framework.walk import python_files
+
 LIMIT = 35
 
 
@@ -27,7 +29,7 @@ def find_fat_commands(root: Path) -> list[str]:
     if not commands.is_dir():
         return [f"{commands}: command layer is missing"]
     violations: list[str] = []
-    for path in sorted(commands.rglob("*.py")):
+    for path in python_files(root, "app/commands"):
         tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
         rel = path.relative_to(root).as_posix()
         for node in ast.walk(tree):

@@ -2,6 +2,7 @@
 root_packages =
     app
     framework
+include_external_packages = True
 
 [importlinter:contract:public-does-not-import-private]
 name = Public must not import private
@@ -9,4 +10,40 @@ type = forbidden
 source_modules =
     app.public
 forbidden_modules =
-    app.private
+    app.logic
+
+[importlinter:contract:logic-does-not-import-command]
+name = Business logic does not import the command layer
+type = forbidden
+source_modules =
+    app.logic
+forbidden_modules =
+    app.commands
+
+[importlinter:contract:upper-layers-own-the-cli-framework]
+name = Only the command layer imports the CLI framework
+type = forbidden
+source_modules =
+    app.logic
+    app.public
+    framework
+forbidden_modules =
+    argparse
+
+[importlinter:contract:framework-does-not-import-upper]
+name = Infrastructure does not import upper layers
+type = forbidden
+source_modules =
+    framework
+forbidden_modules =
+    app.logic
+    app.commands
+    app.public
+
+[importlinter:contract:logic-does-not-render]
+name = Business logic does not import the renderer
+type = forbidden
+source_modules =
+    app.logic
+forbidden_modules =
+    framework.output

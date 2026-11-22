@@ -122,8 +122,10 @@ class ThinCommandTest(unittest.TestCase):
 
     def test_entry_does_not_import_argparse(self) -> None:
         entry = ast.parse((ROOT / "app" / "__main__.py").read_text(encoding="utf-8"))
-        command = ast.parse((ROOT / "app" / "commands" / "hello.py").read_text(encoding="utf-8"))
+        command = ast.parse((ROOT / "app" / "commands" / "dispatch.py").read_text(encoding="utf-8"))
+        hello = ast.parse((ROOT / "app" / "commands" / "hello.py").read_text(encoding="utf-8"))
         self.assertFalse(self._imports_argparse(entry))
+        self.assertFalse(self._imports_argparse(hello))
         self.assertTrue(self._imports_argparse(command))
 
     @staticmethod

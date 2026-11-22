@@ -1,0 +1,10 @@
+[run]
+source =
+    app
+    framework
+branch = False
+
+[report]
+fail_under = 85
+show_missing = True
+skip_covered = False

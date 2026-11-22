@@ -1,3 +1,5 @@
+This file records the 2026-11-09 four-check probe. It is not the conformance report for the implementation that followed.
+
 # Probe results
 
 Run on 2026-11-09 with Python 3.15.2 and import-linter 2.16. `python -m unittest discover -s tests` passed 15 tests. The spec was not edited.
@@ -81,4 +83,4 @@ These four rules hold in Python. The public-import rule is met by a linter. The 
 
 No requirement had to be stated by naming a language, so the spec stays at 0.13.1.
 
-Principle 5: the spec plus Go and Rust carried this layer. That is not a reason to build the rest of a framework. Logging, a TUI, release tooling, license checks, and SBOM checks were left out, and this repo does not claim conformance to the other 42 requirements.
+The last paragraph of the 2026-11-09 note said this probe was not a reason to build the rest. That conclusion was rejected. Logging, output, the release gate, and the rest of the spec are in scope. A terminal UI, a license scan, and an SBOM are not spec requirements and stay out. The conformance report is the record of the implementation.

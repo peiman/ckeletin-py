@@ -2,4 +2,4 @@
 
 
 def surface() -> str:
-    return "ckeletin-python"
+    return "ckeletin-py"

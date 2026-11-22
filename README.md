@@ -1,8 +1,8 @@
-# ckeletin-python
+# ckeletin-py
 
-A probe of four ckeletin rules in Python. This is not a framework and not a product.
+The Python implementation of the ckeletin spec. It is the frame for a bespoke Python CLI: the same requirements Go and Rust meet, with Python tools. Each requirement's enforcement rung is recorded in `ENFORCEMENT.md` and `conformance-report.json`. A lower rung is a recorded fact. It is not a smaller requirement.
 
-Imports are not rejected by the compiler here. Each check has to fail a planted violation with a tool. The result of that run is [RESULTS.md](RESULTS.md). The spec is unchanged.
+This checkout is local. The spec stays 0.13.1.
 
 ## Run
 
@@ -10,18 +10,17 @@ Imports are not rejected by the compiler here. Each check has to fail a planted 
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
 .venv/bin/python -m unittest discover -s tests
-.venv/bin/python -m app
+.venv/bin/python -m app check
 ```
 
-`python -m app` prints `hello`.
+`python -m app` prints the configured message.
 
-## Checks
+## Layout
 
-| Rule | Command | Planted violation |
-| --- | --- | --- |
-| Public must not import private | `.venv/bin/lint-imports` | `cd tests/fixtures/public_imports_private && ../../../.venv/bin/lint-imports` |
-| Config call sites use the registry | `.venv/bin/python -m framework.checks.config_keys` | `tests/fixtures/raw_config_key` |
-| Update replaces `framework/` only | `.venv/bin/python -m framework.update PROJECT UPSTREAM` | covered by `tests/test_probe.py` |
-| A `run` function can be measured | `.venv/bin/python -m framework.checks.thin_commands` | `tests/fixtures/fat_command` |
+- `app/__main__.py` is the entry.
+- `app/commands/` is the only layer that imports argparse.
+- `app/logic/` is business logic.
+- `app/public/` is the public surface.
+- `framework/` is replaced by `python -m app update --upstream PATH`.
 
-The config registry is `framework/config.py`. The command layer is `app/commands/`. The entry point does not import argparse.
+The 2026-11-09 four-check probe is recorded in [RESULTS.md](RESULTS.md). `lint-imports` still has to be run with its working directory at the package root.
